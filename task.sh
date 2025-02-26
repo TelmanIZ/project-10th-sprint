@@ -2,15 +2,11 @@
 
 # создаём каталог task с вложенными директориями
 # task                                                 
-mkdir task
 #   dir1                                               
-mkdir task/dir1
 #   dir2                                               
-mkdir task/dir2
 #   dir3                                               
-mkdir task/dir3
 #       dir4                                           
-mkdir task/dir3/dir4
+mkdir -p task/dir1 task/dir2 task/dir3/dir4
 
 # изменяем текущую директорию на task                  
 cd task
@@ -31,7 +27,7 @@ chmod 764 dir2/hello.sh
 ls dir2 > dir2/list.txt
 
 # копируем содержимое каталога task/dir2 в каталог task/dir3/dir4        
-cp -r -T dir2 dir3/dir4
+cp -r dir2 dir3/dir4
 
 # записываем в task/dir1/summary.txt список файлов с расширением *.txt   
 # находящихся в task, включая поддиректории
@@ -41,6 +37,7 @@ find -name "*.txt" > dir1/summary.txt
 cat dir2/list.txt >> dir1/summary.txt
 
 # определяем переменную окружения NAME со значением "Всем студентам"      
+export NAME
 NAME='Всем студентам'
 
 # запускаем task/dir2/hello.sh с переменной окружения NAME в качестве аргумента  
@@ -48,16 +45,14 @@ NAME='Всем студентам'
 ./dir2/hello.sh "$NAME" >> dir1/summary.txt
 
 # перемещаем с переименованием task/dir1/summary.txt в task/Практическое задание
-cd ..  
-mv task/dir1/summary.txt task/Практическое_задание
-cd task
+mv ./dir1/summary.txt ./Практическое_задание
 
 # выводим на консоль содержимое файла task/Практическое задание                   
 cat Практическое_задание
 
 # ищем в файле "Практическое задание" строки, которые содержат слово "dir"  
 # и затем отсортировываем их                                                
-ls . | grep "dir" Практическое_задание
+grep "dir" Практическое_задание | sort
 
 # меняем текущую директорию на родительскую для task                        
 cd ..
